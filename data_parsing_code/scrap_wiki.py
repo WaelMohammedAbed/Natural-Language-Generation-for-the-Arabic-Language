@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  2 22:47:34 2019
-
-@author: Roaa
-"""
-
 # Import libraries
 import requests
 from bs4 import BeautifulSoup
@@ -27,7 +20,7 @@ for verb_root in verb_roots:
     # Set the URL you want to webscrape from
     #url = 'https://cinemana.shabakaty.com/page/movie/watch/en/'+str(i)
     url='https://en.wiktionary.org/wiki/'+verb_root['verb_root']
-    
+
     # Connect to the URL
     response = requests.get(url)
     response.encoding = "utf-8"
@@ -43,5 +36,3 @@ for verb_root in verb_roots:
     #print(inflection_table)
     except:
         continue
-    
-    

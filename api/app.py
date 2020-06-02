@@ -3,6 +3,7 @@ import mysql.connector as MySQL
 
 import countable_nouns as cn
 import ar_inflectVerb as iv
+import ar_pronouns as ar_p
 
 import yaml
 
@@ -23,6 +24,9 @@ def index():
 @app.route('/inflect_verbs', methods=['GET', 'POST'])
 def inflect_verbs():
     return render_template('inflect_verbs.html')
+@app.route('/pronouns', methods=['GET', 'POST'])
+def pronouns():
+    return render_template('pronouns.html')
 @app.route('/add_noun', methods=['GET', 'POST'])
 def add_noun():
     if request.method == 'POST':
@@ -49,7 +53,7 @@ def users():
     cur.execute("SELECT * FROM `nouns`")
     nouns = cur.fetchall()
     return render_template('nouns.html',nouns=nouns)
-    
+
 @app.route('/get_noun_details/<string:singular>',methods=['GET'])
 def get_noun_details(singular):
     cur = mysql.cursor()
@@ -79,14 +83,14 @@ def ar_countable():
         noun=str(noun).strip()
         if len(str(count)) ==0 or len(noun) == 0:
             return jsonify({ 'error':True, 'message':'count and noun are mandatory'});
-            
+
         case = nounDetails['case']
         case=str(case).strip()
         if len(case) ==0:
             case= "nominative"
         elif case != "nominative" and case != "accusative" and case != "genitive":
             return jsonify({ 'error':True, 'message':' case field can take only one of these values (nominative, accusative or genitive)'});
-            
+
         gender = nounDetails['gender']
         gender=str(gender).strip()
         try:
@@ -101,7 +105,7 @@ def ar_countable():
             gender = 0
         else:
             return jsonify({ 'error':True, 'message':' Gender ('+str(gender)+') field can take only one of these values (True, False, 1 or 0 )'});
-            
+
         dual = nounDetails['dual']
         dual=str(dual).strip()
         if len(dual) ==0:
@@ -111,7 +115,7 @@ def ar_countable():
         plural=str(plural).strip()
         if len(plural) ==0:
             plural= None
-            
+
         number_format = nounDetails['number_format']
         number_format=str(number_format).strip()
         try:
@@ -121,7 +125,7 @@ def ar_countable():
                 number_format= "wordsOnly"
             elif number_format != "wordsOnly" and number_format != "digitsOnly":
                 return jsonify({ 'error':True, 'message':' Number Format field can take only one of these values (digitsOnly, wordsOnly or a number)'});
-           
+
         zero_format = nounDetails['zero_format']
         zero_format=str(zero_format).strip()
         if len(zero_format) ==0:
@@ -134,7 +138,7 @@ def ar_countable():
         else:
             for modifier in modifiers_str.split(","):
                 modifiers.append(modifier.strip())
-          
+
         agreement = nounDetails['agreement']
         agreement=str(agreement).strip()
         try:
@@ -149,14 +153,14 @@ def ar_countable():
             agreement = 0
         else:
             return jsonify({ 'error':True, 'message':' agreement ('+str(agreement)+') field can take only one of these values (FA, DA, 1 or 0 )'});
-        
-        
+
+
         print(count,noun,case,gender,dual,plural,number_format,zero_format,modifiers,agreement)
     #def Countable(count, noun, case="nominative", gender = None, dual = None, plural = None, number_format = "wordsOnly", zero_format = "صفر"):
         countable_noun_printable=cn.countable(count,noun,case,gender,dual,plural,number_format,zero_format,modifiers,agreement)
         return jsonify(countable_noun_printable)
     return jsonify({ 'error':True, 'message':'wrong request'});
-    
+
 @app.route('/ar_inflectVerb', methods=['GET', 'POST'])
 def ar_inflectVerb():
     if request.method == 'POST':
@@ -164,7 +168,7 @@ def ar_inflectVerb():
         postDetails = request.form
         word = postDetails['word']
         word=str(word).strip()
-        
+
         number = postDetails['number']
         try:
             number = int(number)
@@ -182,23 +186,67 @@ def ar_inflectVerb():
         person=str(person).strip()
         try:
             person = int(person)
-             
+
         except ValueError:
             return jsonify({ 'error':True, 'message':' person field value is not valid'});
-            
+
         gender = postDetails['gender']
         gender=str(gender).strip()
-        
+
         voice = postDetails['voice']
         voice=str(voice).strip()
         mood_tense = postDetails['mood_tense']
         mood_tense=str(mood_tense).strip()
-        
-        
+
+
         print(word,number,gender,person,voice,mood_tense)
     #def Countable(count, noun, case="nominative", gender = None, dual = None, plural = None, number_format = "wordsOnly", zero_format = "صفر"):
         ar_inflectVerb_printable=iv.ar_inflectVerb(word,number,gender,person,voice,mood_tense)
         return jsonify(ar_inflectVerb_printable)
+    return jsonify({ 'error':True, 'message':'wrong request'});
+
+@app.route('/ar_pronouns', methods=['GET', 'POST'])
+def ar_pronouns():
+    if request.method == 'POST':
+        # Fetch form data
+        postDetails = request.form
+        word = postDetails['word']
+        word=str(word).strip()
+
+        number = postDetails['number']
+        try:
+            number = int(number)
+            if(number ==1):
+                number="singular"
+            elif(number == 2):
+                number="dual"
+            elif(number > 2):
+                number = "plural"
+            else:
+                return jsonify({ 'error':True, 'message':' number field value is not valid'});
+        except ValueError:
+            number=str(number)
+        person = postDetails['person']
+        person=str(person).strip()
+        try:
+            person = int(person)
+
+        except ValueError:
+            return jsonify({ 'error':True, 'message':' person field value is not valid'});
+
+        gender = postDetails['gender']
+        gender=str(gender).strip()
+
+        pronoun_type = postDetails['pronoun_type']
+        pronoun_type=str(pronoun_type).strip()
+        is_person = postDetails['is_person']
+        is_person=str(is_person).strip()
+
+
+        print(number,gender,person,pronoun_type,word,is_person)
+
+        ar_pronoun_printable=ar_p.ar_pronoun(number,gender,person,pronoun_type,word,is_person)
+        return jsonify(ar_pronoun_printable)
     return jsonify({ 'error':True, 'message':'wrong request'});
 
 if __name__ == '__main__':
