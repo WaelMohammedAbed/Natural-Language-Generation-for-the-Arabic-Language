@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -24,12 +24,12 @@
 						, function (data, status) {
 						if (data.error)
 						  $("#results").html(data.message);
-						 else 
+						 else
 						 $("#results").html(data.result);
 						});
 				  });
-			
-			
+
+
 		} );
 	</script>
 
@@ -40,74 +40,78 @@
 
 <div class="container-fluid">
 <div class="page-header">
-    <h1>ar_inflectVerb Function</h1>      
+    <h1>ar_inflectVerb Function</h1>
   </div>
   <div class="row">
 	  <div class="col-lg-6 col-md-6 col-sm-6">
 	  <form id="post_form" method="POST" action="">
 		<div class="form-group">
-		  Word (Verb root) <input class="form-control" type="text" name="word" />
-		 
+		  Word (search priority to Verb root) <input class="form-control" type="text" name="word" />
+
 		</div>
 		<div class="form-group">
-		  Number ("singular","dual" or "plural") 
-		  <input class="form-control" type="number" name="number" />
-		  
+		  Number ("singular","dual" or "plural")
+		  <input class="form-control" type="text" name="number" />
+
 		 </div>
 
 		<div class="form-group">
-			Gender 
+			Gender
 			<select class="form-control"  name="gender">
+				<option value=""> Select Value</option>
 				<option value="m"> Male</option>
 				<option value="f"> Female</option>
 			</select>
-		  
+
 		 </div>
 		<div class="form-group">
-			Person 
+			Person
 			<select class="form-control"  name="person">
-				<option value="3"> 3rd</option>
+				<option value=""> Select Value</option>
 				<option value="1"> 1st </option>
 				<option value="2"> 2nd</option>
-				
+				<option value="3"> 3rd</option>
+
 			</select>
-		  
+
 		 </div>
 		<div class="form-group">
 			Mood and tense (“past”, ”none_past”, “subjunctive”, “jussive” or “imperative” )
 			<select class="form-control"  name="mood_tense">
+				<option value=""> Select Value</option>
 				<option value="past"> past (perfect) indicative </option>
 				<option value="none_past"> none past (imperfect) indicative</option>
 				<option value="subjunctive"> subjunctive</option>
 				<option value="jussive"> jussive</option>
 				<option value="imperative"> imperative</option>
 			</select>
-		  
+
 		 </div>
 		<div class="form-group">
-			Voice ("Active" or "passive") 
+			Voice ("Active" or "passive")
 			<select class="form-control"  name="voice">
+				<option value=""> Select Value</option>
 				<option value="active"> Active </option>
 				<option value="passive"> Passive</option>
 			</select>
 		</div>
-		
+
 		<div class="form-group">
-		  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get Countable">
+		  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get Inflected Verb">
 		  </div>
 		</form>
 
 
 	  </div>
-	  <div class="col-lg-6 col-md-6 col-sm-6">
-		The result 
-		<div id="results"></div>
+	  <div class="col-lg-6 col-md-6 col-sm-6"  >
+		The result
+		<div id="results"  style ="direction: rtl;"></div>
 		</div>
 
   </div>
-  
 
-  
+
+
 
 
 

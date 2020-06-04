@@ -10,28 +10,8 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
 
-			  $("#post_form").submit(function(e){
-				e.preventDefault();
-				var post_data=$("#post_form").serialize();
-				$("#page_contents_loader").show();
-				$("#page_contents").hide();
-				$.post("http://127.0.0.1:5000/ar_countable",
-						post_data
-						, function (data, status) {
-						if (data.error)
-						  $("#results").html(data.message);
-						 else 
-						 $("#results").html(data.result);
-						});
-				  });
-			
-			
-		} );
-	</script>
+
 
 </head>
 <body>
@@ -40,70 +20,55 @@
 
 <div class="container-fluid">
 <div class="page-header">
-    <h1>Countable Function</h1>      
+    <h1>Arabic NLG Functions</h1>
   </div>
-  <div class="row">
-	  <div class="col-lg-6 col-md-6 col-sm-6">
-	  <form id="post_form" method="POST" action="">
-		<div class="form-group">
-		  Count ("dual", "plural" or a number (ex: 12)) <input class="form-control" type="number" name="count" />
-		 
-		</div>
-		<div class="form-group">
-		  Noun <input class="form-control" type="numer" name="noun" />
-		  
-		 </div>
-		<div class="form-group">
-			Cae ("nominative", "accusative" or "genitive") <input class="form-control" type="text" name="case" />
-		  
-		 </div>
-		<div class="form-group">
-			Gender (1 male , 0 female)<input class="form-control" type="text" name="gender" />
-		  
-		 </div>
-		<div class="form-group">
-			Dual (the dual form of the noun ) <input class="form-control" type="text" name="dual" />
-		  
-		 </div>
-		<div class="form-group">
-			Plural (the plural form of the noun )<input class="form-control" type="text" name="plural" />
-		  
-		 </div>
-		<div class="form-group">
-			Number Format ("digitsOnly", "wordsOnly" or a number If count is less than or equal to this value it will be spelled out; otherwise it will be formatted as digits)<input class="form-control" type="text" name="number_format" />
-		 </div>
-		<div class="form-group">
-			Zero format (The word used to express a value of 0. Either "صفر", "ولا", or another word or phrase of your choice, e.g. "لايوجد"). <input class="form-control" type="text" name="zero_format" />
-		  
-		 </div>
-		 <div class="form-group">
-			Modifiers (list of words separated by comma ","). <input class="form-control" type="text" name="modifiers" />
-		  
-		 </div>
-		 <div class="form-group">
-			Agreement (To set the relation between the noun and its modifiers. either Deflected agreement or full agreement).
-			<select class="form-control"  name="agreement">
-				<option value="FA"> Full Agreement</option>
-				<option value="DA"> Deflected Agreement</option>
-			</select>
-		  
-		 </div>
-		<div class="form-group">
-		  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get Countable">
-		  </div>
-		</form>
 
 
-	  </div>
-	  <div class="col-lg-6 col-md-6 col-sm-6">
-		The result 
-		<div id="results"></div>
-		</div>
+	<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#countable_nouns">Countable Nouns</a></li>
+  <li><a data-toggle="tab" href="#inflect_noun">Inflect Noun</a></li>
+  <li><a data-toggle="tab" href="#inflect_verbs">Inflect Verb</a></li>
+	<li><a data-toggle="tab" href="#inflect_adjective">Inflect adjective</a></li>
+	<li><a data-toggle="tab" href="#pronouns">Personal Pronouns</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="countable_nouns" class="tab-pane fade in active">
+    <h3><a href="/countable_nouns" >
+	    Countable Nouns
+	  </a></h3>
+    <p>Some content.</p>
+  </div>
+  <div id="inflect_noun" class="tab-pane fade">
+    <h3><a href="/inflect_noun" >
+			Inflect Noun
+		</a></h3>
+    <p>Some content in menu 1.</p>
+  </div>
+  <div id="inflect_verbs" class="tab-pane fade">
+    <h3><a href="/inflect_verbs" >
+			Inflect Verb
+		</a></h3>
+    <p>Some content in menu 2.</p>
+  </div>
+	<div id="inflect_adjective" class="tab-pane fade">
+    <h3><a href="/inflect_adjective" >
+			Inflect Adjective
+		</a></h3>
+    <p>Some content in menu 2.</p>
+  </div>
+	<div id="pronouns" class="tab-pane fade">
+    <h3><a href="/pronouns" >
+			Personal Pronouns
+		</a></h3>
+    <p>Some content in menu 2.</p>
+  </div>
+</div>
 
   </div>
-  
 
-  
+
+
 
 
 

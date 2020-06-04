@@ -81,7 +81,8 @@ def get_ar_pronoun(number, gender, person, pronoun_type, word,is_person):
             word=word[:-1]
         # If the noun ends with the letter “ة” (taa’ marbuuta). When the suffix pronoun
         # added, this character must be changed to “ت” (taa’ tawila) then add the suffix
-        # this will be automatically handled when attach the pronoun to the word
+        if word.endswith('ة'):
+            word=word[:-1]+"ت"
         result = word+pronoun
     elif pronoun_type == "object":
         pronoun=get_choosen_pronoun(gender,number,person,pronoun_type)
@@ -124,37 +125,63 @@ def check_params(number=3, gender = 1, person = 3, pronoun_type = "subject", wor
 
 
     #check if given number is in string or int format and in one of these values (1,2,3,"singular","dual" or "plural")
-    if (isinstance(number,str) and number.strip().lower() in ["singular","dual","plural"]):
-        str_to_number={"singular":1,"dual":2,"plural":3}
-        number=str_to_number[number.strip().lower()]
-    elif (isinstance(number,int) and int(number)>0):
-        number=int(number)
-        if(number>3):
-            number=3
+    try:
+        number = int(number)
+    except :
+        number=str(number)
+    if(number is None or len(str(number).strip())==0):
+        number=1
     else:
-        return False,"number value is not valid",number, gender, person, pronoun_type, word, is_person
+        if (isinstance(number,str) and number.strip().lower() in ["singular","dual","plural"]):
+            str_to_number={"singular":1,"dual":2,"plural":3}
+            number=str_to_number[number.strip().lower()]
+        elif (isinstance(number,int)):
+            number=int(number)
+            if(number < 0):
+                number= number * -1
+            if(number == 0):
+                number=1
+            elif(number>3):
+                number=3
+        else:
+            return False,"number value is not valid",number, gender, person, pronoun_type, word, is_person
 
     #check if given gender is in string or int format and in one of these values (0,1,"m","f","male" or "female")
-    if (isinstance(gender,str) and gender.strip().lower() in ["male","m"]):
+    try:
+        gender = int(gender)
+    except :
+        gender=str(gender)
+    if(gender is None or len(str(gender).strip())==0):
         gender=1
-    elif (isinstance(gender,str) and gender.strip().lower() in ["female","f"]):
-        gender=0
-    elif (isinstance(gender,int) and int(gender) in [0,1]) or isinstance(gender,bool):
-        if(gender):
-            gender=1
-        else:
-            gender=0
     else:
-        return False,"gender value is not valid",number, gender, person, pronoun_type, word, is_person
+        if (isinstance(gender,str) and gender.strip().lower() in ["male","m"]):
+            gender=1
+        elif (isinstance(gender,str) and gender.strip().lower() in ["female","f"]):
+            gender=0
+        elif (isinstance(gender,int) and int(gender) in [0,1]) or isinstance(gender,bool):
+            if(gender):
+                gender=1
+            else:
+                gender=0
+        else:
+            return False,"gender value is not valid",number, gender, person, pronoun_type, word, is_person
 
     #check if given person is in int format and in one of these values (1,2,3)
-    if (isinstance(person,int) and int(person) in [1,2,3]):
-        person=int(person)
-    else:
+    if(person is None or len(str(person).strip())==0):
+        person=3
+    try:
+        person = int(person)
+        if (person in [1,2,3]):
+            person=int(person)
+        else:
+            return False,"person value is not valid",number, gender, person, pronoun_type, word, is_person
+
+    except :
         return False,"person value is not valid",number, gender, person, pronoun_type, word, is_person
 
-
     #check if given pronoun_type is a string and in one of these values (subject, object, reflexive, possessive, or accusative object)
+    if(pronoun_type is None or len(str(pronoun_type).strip())==0):
+        pronoun_type="subject"
     if (isinstance(pronoun_type,str) and pronoun_type.strip().lower() in ["subject","object","reflexive","possessive","accusative_object"]):
         pronoun_type=pronoun_type.strip().lower()
     else:
@@ -170,6 +197,8 @@ def check_params(number=3, gender = 1, person = 3, pronoun_type = "subject", wor
         return False,"Word value is not valid",number, gender, person, pronoun_type, word, is_person
 
     #check if given is_person is in string or boolean format and in one of these values (0,1,"t","f","true" or "false")
+    if(is_person is None or len(str(is_person).strip())==0):
+        is_person=True
     if (isinstance(is_person,str) and is_person.strip().lower() in ["true","t","1"]):
         is_person=True
     elif (isinstance(is_person,str) and is_person.strip().lower() in ["false","f","0"]):
