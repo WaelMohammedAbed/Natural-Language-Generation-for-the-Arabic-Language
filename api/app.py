@@ -51,88 +51,21 @@ def ar_countable():
         # Fetch form data
         nounDetails = request.form
         count = nounDetails['count']
-        count=str(count).strip()
-        try:
-            count = int(count)
-        except ValueError:
-            count=str(count)
+
         noun = nounDetails['noun']
-        noun=str(noun).strip()
-        if len(str(count)) ==0 or len(noun) == 0:
-            return jsonify({ 'error':True, 'message':'count and noun are mandatory'});
-
         case = nounDetails['case']
-        case=str(case).strip()
-        if len(case) ==0:
-            case= "nominative"
-        elif case != "nominative" and case != "accusative" and case != "genitive":
-            return jsonify({ 'error':True, 'message':' case field can take only one of these values (nominative, accusative or genitive)'});
-
         gender = nounDetails['gender']
         gender=str(gender).strip()
-        try:
-            gender = int(gender)
-        except ValueError:
-            gender=str(gender)
-        if len(str(gender)) ==0:
-            gender= None
-        elif gender == "Male" or gender == "male" or gender == "True" or gender == "true" or gender == "1" or gender == 1:
-            gender = 1
-        elif gender == "Female" or gender == "female" or gender == "False" or gender == "false" or gender == "0" or gender == 0:
-            gender = 0
-        else:
-            return jsonify({ 'error':True, 'message':' Gender ('+str(gender)+') field can take only one of these values (True, False, 1 or 0 )'});
-
         dual = nounDetails['dual']
-        dual=str(dual).strip()
-        if len(dual) ==0:
-            dual= None
-
         plural = nounDetails['plural']
-        plural=str(plural).strip()
-        if len(plural) ==0:
-            plural= None
-
         number_format = nounDetails['number_format']
-        number_format=str(number_format).strip()
-        try:
-            number_format = int(number_format)
-        except ValueError:
-            if len(number_format) ==0:
-                number_format= "wordsOnly"
-            elif number_format != "wordsOnly" and number_format != "digitsOnly":
-                return jsonify({ 'error':True, 'message':' Number Format field can take only one of these values (digitsOnly, wordsOnly or a number)'});
 
         zero_format = nounDetails['zero_format']
-        zero_format=str(zero_format).strip()
-        if len(zero_format) ==0:
-            zero_format= "صفر"
         modifiers_str = nounDetails['modifiers']
-        modifiers_str=str(modifiers_str).strip()
-        modifiers=[]
-        if len(modifiers_str) ==0:
-            modifiers= []
-        else:
-            for modifier in modifiers_str.split(","):
-                modifiers.append(modifier.strip())
-
         agreement = nounDetails['agreement']
-        agreement=str(agreement).strip()
-        try:
-            agreement = int(agreement)
-        except ValueError:
-            agreement=str(agreement)
-        if len(str(agreement)) ==0:
-            agreement= 1
-        elif agreement == "FA" or agreement == "fa" or agreement == "True" or agreement == "true" or agreement == "1" or agreement == 1:
-            agreement = 1
-        elif agreement == "DA" or agreement == "da" or agreement == "False" or agreement == "false" or agreement == "0" or agreement == 0:
-            agreement = 0
-        else:
-            return jsonify({ 'error':True, 'message':' agreement ('+str(agreement)+') field can take only one of these values (FA, DA, 1 or 0 )'});
 
 
-        countable_noun_printable=cn.countable(count,noun,case,gender,dual,plural,number_format,zero_format,modifiers,agreement)
+        countable_noun_printable=cn.countable(count,noun,case,gender,dual,plural,number_format,zero_format,modifiers_str,agreement)
         return jsonify(countable_noun_printable)
     return jsonify({ 'error':True, 'message':'wrong request'});
 

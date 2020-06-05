@@ -168,7 +168,7 @@ def ar_inflectNoun(number, noun, case="nominative", gender = None, dual = None, 
     except :
         gender=str(gender)
     if(gender is None or len(str(gender).strip())==0):
-        gender=True
+        gender=None
     else:
         if (isinstance(gender,str) and gender.strip().lower() in ["male","m"]):
             gender=True
@@ -200,7 +200,7 @@ def ar_inflectNoun(number, noun, case="nominative", gender = None, dual = None, 
         if isinstance(number,str) and (number in ["singular","dual","plural"]):
             number=str(number).strip().lower()
 
-        elif isinstance(number,int) and int(number)>0:
+        elif isinstance(number,int):
             if number<0:
                 number=number*-1
 
@@ -213,7 +213,6 @@ def ar_inflectNoun(number, noun, case="nominative", gender = None, dual = None, 
 
         else:
             return { 'error':True,'message':'Number type not supported'}
-    print(noun,case,gender,dual,plural,number)
     inflect_noun_printable = get_noun_dual_plural_gender(noun,case,gender,dual,plural,number)
     if len(inflect_noun_printable)>0:
         return { 'result':inflect_noun_printable, 'error':False, 'message':""}

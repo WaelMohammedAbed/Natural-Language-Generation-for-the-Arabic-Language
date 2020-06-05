@@ -12,7 +12,11 @@
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 
-
+	<style>
+	td {
+		text-align: justify;
+	}
+	</style>
 </head>
 <body>
 
@@ -37,31 +41,510 @@
     <h3><a href="/countable_nouns" >
 	    Countable Nouns
 	  </a></h3>
-    <p>Some content.</p>
+    <p>Generates a noun sentence with numerals in the right grammatically form, e.g. “مثتان و واحد و عشرون هدف”
+			 (Two hundred and twenty one goals).</p>
+		<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Parameter </th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Count</td>
+        <td>Number or string
+				(Mandatory)
+				</td>
+        <td>Either “dual”, “plural” or a number. If a number is provided, it will be output as a modifier to the
+					 input noun and the noun is correctly inflected. If singular, dual or plural is used, the noun is
+					 inflected correctly based on the noun gender and the “case” parameter value.
+				 </td>
+      </tr>
+      <tr>
+        <td>Noun</td>
+        <td>String (Mandatory)</td>
+        <td>The input noun. Ideally, the noun in its singular nominative form should be provided,
+					 however, if the word didn’t match any singular nominative form in the db, then, all
+					 other forms will be checked. If the word didn’t match again, this time the noun will
+					  be inflected manually using the known rules of the noun inflections
+				</td>
+      </tr>
+      <tr>
+        <td>Case </td>
+        <td>String (optional)</td>
+        <td>Default value (nominative). This parameter accepts only these three values “nominative”, “accusative” or
+					“genitive”. It represent the case of the noun to be inflected base on it
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Gender
+				</td>
+        <td>
+					Number (optional)
+				</td>
+        <td>
+					(default “1” for male). It accepts only two values “0” and “1” for female and male
+					respectively. If this value provided, then it overrides the existing gender of the noun
+					 saved in the database. If not and there is no value in the database for the given noun
+					  then it will be treated as “male” noun.
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Dual
+				</td>
+        <td>
+					String (optional)
+				</td>
+        <td>
+					If this value provided, then it overrides the existing “dual” value of the noun saved
+					in the database. If not and there is no value in the database for the given noun then
+					it will be treated according to the dual rules explained earlier.
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Plural
+				</td>
+        <td>
+					String (optional)
+				</td>
+        <td>
+					If this value provided, then it overrides the existing “Plural” value of the noun saved
+					 in the database. If not and there is no value in the database for the given noun then
+					  it will be treated according to the Sound plural rules explained earlier.
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Number Format
+				</td>
+        <td>
+					Number or String (optional)
+				</td>
+        <td>
+					(default “wordsOnly”). If count is less than or equal to this value it will be spelled out;
+					otherwise it will be formatted as digits. For example, if you enter the integer 5, then numbers up
+					 to and including 5 will be words, and numbers greater than 5 will be digits.
+				  <br/>“wordsOnly”, all numbers should be spelled out.
+			    <br/>“digitsOnly”, no numbers should be spelled out
+
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Zero Format
+				</td>
+        <td>
+					String (optional)
+				</td>
+        <td>
+					(default “صفر”). The word used to express a value of 0. Either “صفر”, “اي”, or another
+					 word or phrase of your choice, e.g. “لايوجد”.
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Modifiers
+				</td>
+        <td>
+					List of Strings (Optional)
+				</td>
+        <td>
+					A list of adjectives that can be used to describe the noun given in the noun parameter.
+					 The full agreement between adjectives and the noun will be used, unless, the noun
+					 available in the database and has the value “un-human” and the value “DA” is given in
+					 the “agreement” parameter
+				</td>
+      </tr>
+			<tr>
+        <td>
+					Agreement
+				</td>
+        <td>
+					Boolean (optional)
+				</td>
+        <td>
+					(default “True”, meaning Full agreement). This value indicates how the adjective will
+					 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
+					  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
+						 the noun has the value “un-human” in the database.
+				</td>
+      </tr>
+    </tbody>
+  </table>
   </div>
   <div id="inflect_noun" class="tab-pane fade">
     <h3><a href="/inflect_noun" >
 			Inflect Noun
 		</a></h3>
-    <p>Some content in menu 1.</p>
+    <p>Returns the inflected form of the input noun taking into consideration 3 aspects (number, gender and case).</p>
+		<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Parameter </th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+				<tr>
+	        <td>Word</td>
+	        <td>
+						string (Mandatory)
+
+					</td>
+	        <td>
+						The input noun. Ideally, the noun in its singular nominative form should be provided,
+						 however, if the word didn’t match any singular nominative form in the db, then, all
+						 other forms will be checked. If the word didn’t match again, this time the noun will
+						  be inflected manually using the known rules of the noun inflections
+					</td>
+			 </tr>
+      <tr>
+        <td>Number</td>
+        <td>
+					Number or String (Optional)
+				</td>
+        <td>(default “plural”) The grammatical number of the noun. Either singular, dual, plural
+					 or a number
+				 </td>
+			 </tr>
+			 <tr>
+         <td>
+					 Gender
+				 </td>
+         <td>
+ 					Number (optional
+ 				</td>
+         <td>
+					 (default “1” for male if the value not in the db). It accepts only two values “0” and
+					  “1” for female and male respectively.
+				 </td>
+ 			 </tr>
+			 <tr>
+         <td>
+					 Case
+				 </td>
+         <td>
+ 					String (optional)
+ 				</td>
+         <td>
+					 Default value (nominative). This parameter accepts only these three values “nominative”,
+					  “accusative” or “genitive”. It represent the case of the noun to be inflected base on
+						it
+				 </td>
+ 			 </tr>
+			 <tr>
+					<td>
+					 Dual
+				 </td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+					 If this value provided, then it overrides the existing “dual” value of the noun saved
+					 in the database. If not and there is no value in the database for the given noun then
+					 it will be treated according to the dual rules explained earlier.
+				 </td>
+				</tr>
+			 <tr>
+					<td>
+					 Plural
+				 </td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+					 If this value provided, then it overrides the existing “Plural” value of the noun saved
+						in the database. If not and there is no value in the database for the given noun then
+						 it will be treated according to the Sound plural rules explained earlier.
+				 </td>
+				</tr>
+     </tbody>
+   </table>
+
   </div>
   <div id="inflect_verbs" class="tab-pane fade">
     <h3><a href="/inflect_verbs" >
 			Inflect Verb
 		</a></h3>
-    <p>Some content in menu 2.</p>
+    <p>Returns the inflected form of the input verb taking into consideration five aspects
+			 (number, gender, person, voice and mood/tense).
+		</p>
+		<table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Parameter </th>
+	        <th>Type</th>
+	        <th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+					<td>
+						Word
+					</td>
+	        <td>
+						String (Mandatory)
+					</td>
+	        <td>
+						The input verb. Ideally, the verb root should be provided, however, if the word didn’t
+						match any root in the db, then, all other forms will be checked. If the word didn’t
+						 match again, this time the verb will be inflected manually using the known rules of
+						  the verb inflections
+					</td>
+				</tr>
+	        <td>
+						Number
+					</td>
+	        <td>
+						Number or String (Optional)
+					</td>
+	        <td>(default “plural” )The grammatical number of the verb. Either singular, dual,
+						plural or a number (not: dual or number 2 can’t be used with the 1st person)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Gender
+					</td>
+					<td>
+					 Number (optional
+				 </td>
+					<td>
+						(default “1” for male if the value not in the db). It accepts only two values “0” and
+						 “1” for female and male respectively.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Person
+					</td>
+					<td>
+					 Number (optional)
+				 </td>
+					<td>
+						(default “3” for third person). The grammatical person of the verb. Either 1, 2 or 3
+						to indicate first, second and third person respectively.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Voice
+					</td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+						(default “active”). It accepts only two values “active” and “passive” for the verb voice.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Mood_tense
+					</td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+						(default “past”). It accepts five values (“past”, ”none_past”, “subjunctive”, “jussive”
+						 or “imperative”). However, if the value “passive” provided in the “Voice” parameter or
+						  2nd person is selected then the value “imperative” is not acceptable.
+					</td>
+				</tr>
+			</tbody>
+		</table>
   </div>
 	<div id="inflect_adjective" class="tab-pane fade">
     <h3><a href="/inflect_adjective" >
 			Inflect Adjective
 		</a></h3>
-    <p>Some content in menu 2.</p>
+    <p>Returns the inflected form of the input adjective taking into consideration 3
+			aspects (number, gender and case).
+		</p>
+		<table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Parameter </th>
+	        <th>Type</th>
+	        <th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+					<td>
+						Modifiers
+					</td>
+	        <td>
+						List of Strings (Optional)
+					</td>
+	        <td>
+						A list of adjectives that can be used to describe the noun given in the noun parameter.
+						 The full agreement between adjectives and the noun will be used, unless,  the value of
+						  the “is_person” parameter is set to True and the value “DA” or False is given in the
+							“agreement” parameter
+					</td>
+				</tr>
+	        <td>
+						Number
+					</td>
+	        <td>
+						Number or String (Optional)
+					</td>
+	        <td>(default “plural” )The grammatical number of the verb. Either singular, dual,
+						plural or a number (not: dual or number 2 can’t be used with the 1st person)
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Gender
+					</td>
+					<td>
+					 Number (optional
+				 </td>
+					<td>
+						(default “1” for male if the value not in the db). It accepts only two values “0” and
+						 “1” for female and male respectively. This value will be used in case of the adjective
+						  is not found in the database only.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Case
+					</td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+						Default value (nominative). This parameter accepts only these three values “nominative”,
+						 “accusative” or “genitive”. It represent the case of the adjective to be inflected base on it
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Is_person
+					</td>
+					<td>
+					 Boolean (optional)
+				 </td>
+					<td>
+						(default “True”). It indicates whether the modifier(s) refer to a person (human)
+						 noun or not.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Agreement
+					</td>
+					<td>
+					 Boolean (optional)
+				 </td>
+					<td>
+						(default “True”, meaning Full agreement). This value indicates how the adjective will
+						 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
+						  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
+							 the noun has the value “un-human” in the database.
+					</td>
+				</tr>
+			</tbody>
+		</table>
   </div>
 	<div id="pronouns" class="tab-pane fade">
     <h3><a href="/pronouns" >
 			Personal Pronouns
 		</a></h3>
-    <p>Some content in menu 2.</p>
+    <p>Returns the pronoun (e.g. you, his, her, them, etc.) for a given input gender or name.
+			 The optional parameters allow you to specify your desired pronoun type..</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Parameter </th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Number
+					</td>
+					<td>
+						Number or String (Optional)
+					</td>
+					<td>
+						(default “singular”) The grammatical number of the pronoun. Either singular, dual,
+						 plural or a number (not: dual or number 2 can’t be used with the 1st person, therefore, in this case the pronoun of the plural first person will be used)
+					</td>
+				</tr>
+					<td>
+						Gender
+					</td>
+					<td>
+						Number (optional)
+					</td>
+					<td>
+						(default “1” for male). It accepts only two values “0” and “1” for female and male
+						 respectively.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Person
+					</td>
+					<td>
+					 Number (optional)
+				 </td>
+					<td>
+						(default “3” for third person). The grammatical person of the pronoun. Either 1, 2 or 3
+						 to indicate first, second and third person respectively.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Type
+					</td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+						(default “subject”). This value should be either subject, object, reflexive, possessive,
+						 or accusative object.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Word
+					</td>
+					<td>
+						string
+ 					(Optional if the type of the pronoun is independent and mandatory if not)
+
+				 </td>
+					<td>
+						(default Null), The input verb, noun or preposition. It will be used to add the
+						pronoun as a suffix to it if the desired type of the pronoun is detached (dependent)
+						 pronoun
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Is person
+					</td>
+					<td>
+					 Boolean (optional)
+				 </td>
+					<td>
+						(default “True”) indicate if the word provided in the “word” parameter refer to a human
+						 or not. Because, for nonhuman plurals in Arabic language, the singular feminine pronoun
+						  in its third person form is used
+					</td>
+				</tr>
+			</tbody>
+		</table>
   </div>
 </div>
 

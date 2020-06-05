@@ -16,10 +16,8 @@ arabic_diacritics = re.compile("""
 
 def remove_diacritics(text):
     try:
-        #print(text)
         text = re.sub(arabic_diacritics, '', text)
     except:
-        #print("error",text)
         return text
 
     return text
