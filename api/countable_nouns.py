@@ -47,7 +47,7 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
     dualByCase={'accusative': "dual_a", 'nominative': "dual_n", 'genitive':"dual_g"}
     singularByCase={'accusative': "singular_a", 'nominative': "singular_n", 'genitive':"singular_g"}
     cur = mysql.cursor(buffered=True,dictionary=True)
-    select_singular=("SELECT * FROM `nouns_2` WHERE "
+    select_singular=("SELECT * FROM `nouns` WHERE "
                      +"`singular_a` = %(noun)s "
                      +"OR `singular_n` = %(noun)s "
                      +"OR `singular_g` = %(noun)s "
@@ -63,6 +63,7 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
     cur.execute(select_singular,data_singular)
     nounDetails = cur.fetchone()
     # get Gender value
+
     if(gender == None and nounDetails != None and nounDetails["gender"] != None): # if gender not given then take the noun gender from db if exist
         gender=nounDetails["gender"]
     elif (gender == None and (nounDetails == None or (nounDetails != None and nounDetails["gender"] == None))): # if gender not given and not in db then set default to 1 (male)
@@ -73,14 +74,16 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
         # get singular Value
         chosenNoun=noun
         if (nounDetails == None or (nounDetails != None and nounDetails[singularByCase[case]] == None)):
-            if nounDetails['singular_n'] is not None:
-                chosenNoun=nounDetails['singular_n']
-            elif nounDetails['singular_a'] is not None:
-                chosenNoun=nounDetails['singular_a']
-            elif nounDetails['singular_g'] is not None:
-                chosenNoun=nounDetails['singular_g']
+
+            if not gender :
+
+                if not noun.endswith('ة'):
+
+                    noun=noun + "ة"
             else:
-                chosenNoun=noun
+                if noun.endswith('ة'):
+                    noun=noun[:-1]
+            chosenNoun=noun
         else:
             chosenNoun=nounDetails[singularByCase[case]]
     elif(chosen_type=="dual"):
@@ -167,7 +170,7 @@ def get_noun_modifiers(modifiers,
 
     inflected_modifiers=[]
     for adjective in modifiers:
-        select_adjective=("SELECT * FROM `modifiers_2` WHERE "
+        select_adjective=("SELECT * FROM `modifiers` WHERE "
                           +"`root` = %(adjective)s OR "
                           +"`m_singular_nominative` = %(adjective)s OR "
                           +"`m_singular_accusative` = %(adjective)s OR "

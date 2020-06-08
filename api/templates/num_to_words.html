@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Arabic NLG</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			  $("#post_form").submit(function(e){
+				e.preventDefault();
+				var post_data=$("#post_form").serialize();
+				$("#page_contents_loader").show();
+				$("#page_contents").hide();
+				$.post("http://127.0.0.1:5000/ar_numToWords",
+						post_data
+						, function (data, status) {
+						if (data.error)
+						  $("#results").html(data.message);
+						 else
+						 $("#results").html(data.result);
+						});
+				  });
+
+
+		} );
+	</script>
+
+</head>
+<body>
+
+
+
+<div class="container-fluid">
+<div class="page-header">
+    <h1>numToWords Function</h1>
+  </div>
+  <div class="row">
+	  <div class="col-lg-6 col-md-6 col-sm-6">
+	  <form id="post_form" method="POST" action="">
+			<div class="form-group">
+			  Number (ex: 12)
+				<input class="form-control" type="number" name="count" />
+
+			</div>
+
+			<div class="form-group">
+			Gender
+			<select class="form-control"  name="gender">
+				<option value=""> Select Value</option>
+				<option value="m"> Male</option>
+				<option value="f"> Female</option>
+			</select>
+			</div>
+
+			<div class="form-group">
+				Case (nominative, accusative or genitive) optional (default = nominative)
+				<select class="form-control"  name="case">
+					<option value=""> Select Value</option>
+					<option value="nominative"> Nominative </option>
+					<option value="accusative"> Accusative</option>
+					<option value="genitive"> Genitive</option>
+				</select>
+			</div>
+			<div class="form-group">
+	 			Type (cardinal or ordinal) optional (default = cardinal)
+	 			<select class="form-control"  name="type">
+	 				<option value=""> Select Value</option>
+	 				<option value="cardinal"> Cardinal </option>
+	 				<option value="ordinal"> Ordinal</option>
+	 			</select>
+	 		</div>
+
+			<div class="form-group">
+				Number Format ("digitsOnly", "wordsOnly" or a number If count is less than or equal to this value
+				it will be spelled out; otherwise it will be formatted as digits)
+				<input class="form-control" type="text" name="number_format" />
+			 </div>
+			<div class="form-group">
+				Zero format (The word used to express a value of 0. Either "صفر", "ولا", or another word or phrase of
+				your choice, e.g. "لايوجد").
+				 <input class="form-control" type="text" name="zero_format" />
+
+		  </div>
+
+			<div class="form-group">
+			  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get numToWords">
+		  </div>
+		</form>
+
+
+	  </div>
+	  <div class="col-lg-6 col-md-6 col-sm-6">
+		The result
+		<div id="results" style ="direction: rtl;"></div>
+		</div>
+
+  </div>
+
+
+
+
+
+
+</body>
+<script>
+
+</script>
+</html>

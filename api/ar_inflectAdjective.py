@@ -95,7 +95,7 @@ def get_noun_modifiers(modifiers,
 
     inflected_modifiers=[]
     for adjective in modifiers:
-        select_adjective=("SELECT * FROM `modifiers_2` WHERE "
+        select_adjective=("SELECT * FROM `modifiers` WHERE "
                           +"`root` = %(adjective)s OR "
                           +"`m_singular_nominative` = %(adjective)s OR "
                           +"`m_singular_accusative` = %(adjective)s OR "

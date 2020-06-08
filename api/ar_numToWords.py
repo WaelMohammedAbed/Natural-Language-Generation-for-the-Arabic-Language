@@ -50,7 +50,7 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,numbers_typ
     dualByCase={'accusative': "dual_a", 'nominative': "dual_n", 'genitive':"dual_g"}
     singularByCase={'accusative': "singular_a", 'nominative': "singular_n", 'genitive':"singular_g"}
     cur = mysql.cursor(buffered=True,dictionary=True)
-    select_singular=("SELECT * FROM `nouns_2` WHERE "
+    select_singular=("SELECT * FROM `nouns` WHERE "
                      +"`singular_a` = %(noun)s "
                      +"OR `singular_n` = %(noun)s "
                      +"OR `singular_g` = %(noun)s "
@@ -441,7 +441,7 @@ def ar_numToWords(number, case="nominative", gender = None, numbers_type = "card
     except :
         gender=str(gender)
     if(gender is None or len(str(gender).strip())==0):
-        gender=None
+        gender=True
     else:
         if (isinstance(gender,str) and gender.strip().lower() in ["male","m"]):
             gender=True
@@ -480,6 +480,8 @@ def ar_numToWords(number, case="nominative", gender = None, numbers_type = "card
     zero_format=str(zero_format).strip()
     if len(zero_format) ==0:
         zero_format= "صفر"
+    if numbers_type == "ordinal":
+        zero_format="ال"+ zero_format
 
 
 
@@ -501,7 +503,7 @@ def ar_numToWords(number, case="nominative", gender = None, numbers_type = "card
 
                 if type(numeral) is tuple:
                     if len(numeral[numeral[-1]])>0:
-                        seperator=" , "
+                        seperator=" و "
                         if numbers_type == "ordinal" and len(numberable_noun_printable.strip())>1:
                             seperator=" بعد "
                         numberable_noun_printable=numberable_noun_printable+seperator+ ' '.join(numeral[0:-1])

@@ -34,6 +34,9 @@
   <li><a data-toggle="tab" href="#inflect_verbs">Inflect Verb</a></li>
 	<li><a data-toggle="tab" href="#inflect_adjective">Inflect adjective</a></li>
 	<li><a data-toggle="tab" href="#pronouns">Personal Pronouns</a></li>
+	<li><a data-toggle="tab" href="#num_to_words">Number to Words</a></li>
+	<li><a data-toggle="tab" href="#country_adjective">Country Adjective</a></li>
+	<li><a data-toggle="tab" href="#country_determiner">Country Determiner</a></li>
 </ul>
 
 <div class="tab-content">
@@ -44,138 +47,138 @@
     <p>Generates a noun sentence with numerals in the right grammatically form, e.g. “مثتان و واحد و عشرون هدف”
 			 (Two hundred and twenty one goals).</p>
 		<table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Parameter </th>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Count</td>
-        <td>Number or string
-				(Mandatory)
-				</td>
-        <td>Either “dual”, “plural” or a number. If a number is provided, it will be output as a modifier to the
-					 input noun and the noun is correctly inflected. If singular, dual or plural is used, the noun is
-					 inflected correctly based on the noun gender and the “case” parameter value.
-				 </td>
-      </tr>
-      <tr>
-        <td>Noun</td>
-        <td>String (Mandatory)</td>
-        <td>The input noun. Ideally, the noun in its singular nominative form should be provided,
-					 however, if the word didn’t match any singular nominative form in the db, then, all
-					 other forms will be checked. If the word didn’t match again, this time the noun will
-					  be inflected manually using the known rules of the noun inflections
-				</td>
-      </tr>
-      <tr>
-        <td>Case </td>
-        <td>String (optional)</td>
-        <td>Default value (nominative). This parameter accepts only these three values “nominative”, “accusative” or
-					“genitive”. It represent the case of the noun to be inflected base on it
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Gender
-				</td>
-        <td>
-					Number (optional)
-				</td>
-        <td>
-					(default “1” for male). It accepts only two values “0” and “1” for female and male
-					respectively. If this value provided, then it overrides the existing gender of the noun
-					 saved in the database. If not and there is no value in the database for the given noun
-					  then it will be treated as “male” noun.
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Dual
-				</td>
-        <td>
-					String (optional)
-				</td>
-        <td>
-					If this value provided, then it overrides the existing “dual” value of the noun saved
-					in the database. If not and there is no value in the database for the given noun then
-					it will be treated according to the dual rules explained earlier.
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Plural
-				</td>
-        <td>
-					String (optional)
-				</td>
-        <td>
-					If this value provided, then it overrides the existing “Plural” value of the noun saved
-					 in the database. If not and there is no value in the database for the given noun then
-					  it will be treated according to the Sound plural rules explained earlier.
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Number Format
-				</td>
-        <td>
-					Number or String (optional)
-				</td>
-        <td>
-					(default “wordsOnly”). If count is less than or equal to this value it will be spelled out;
-					otherwise it will be formatted as digits. For example, if you enter the integer 5, then numbers up
-					 to and including 5 will be words, and numbers greater than 5 will be digits.
-				  <br/>“wordsOnly”, all numbers should be spelled out.
-			    <br/>“digitsOnly”, no numbers should be spelled out
+	    <thead>
+	      <tr>
+	        <th>Parameter </th>
+	        <th>Type</th>
+	        <th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Count</td>
+	        <td>Number or string
+					(Mandatory)
+					</td>
+	        <td>Either “dual”, “plural” or a number. If a number is provided, it will be output as a modifier to the
+						 input noun and the noun is correctly inflected. If singular, dual or plural is used, the noun is
+						 inflected correctly based on the noun gender and the “case” parameter value.
+					 </td>
+	      </tr>
+	      <tr>
+	        <td>Noun</td>
+	        <td>String (Mandatory)</td>
+	        <td>The input noun. Ideally, the noun in its singular nominative form should be provided,
+						 however, if the word didn’t match any singular nominative form in the db, then, all
+						 other forms will be checked. If the word didn’t match again, this time the noun will
+						  be inflected manually using the known rules of the noun inflections
+					</td>
+	      </tr>
+	      <tr>
+	        <td>Case </td>
+	        <td>String (optional)</td>
+	        <td>Default value (nominative). This parameter accepts only these three values “nominative”, “accusative” or
+						“genitive”. It represent the case of the noun to be inflected base on it
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Gender
+					</td>
+	        <td>
+						Number (optional)
+					</td>
+	        <td>
+						(default “1” for male). It accepts only two values “0” and “1” for female and male
+						respectively. If this value provided, then it overrides the existing gender of the noun
+						 saved in the database. If not and there is no value in the database for the given noun
+						  then it will be treated as “male” noun.
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Dual
+					</td>
+	        <td>
+						String (optional)
+					</td>
+	        <td>
+						If this value provided, then it overrides the existing “dual” value of the noun saved
+						in the database. If not and there is no value in the database for the given noun then
+						it will be treated according to the dual rules explained earlier.
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Plural
+					</td>
+	        <td>
+						String (optional)
+					</td>
+	        <td>
+						If this value provided, then it overrides the existing “Plural” value of the noun saved
+						 in the database. If not and there is no value in the database for the given noun then
+						  it will be treated according to the Sound plural rules explained earlier.
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Number Format
+					</td>
+	        <td>
+						Number or String (optional)
+					</td>
+	        <td>
+						(default “wordsOnly”). If count is less than or equal to this value it will be spelled out;
+						otherwise it will be formatted as digits. For example, if you enter the integer 5, then numbers up
+						 to and including 5 will be words, and numbers greater than 5 will be digits.
+					  <br/>“wordsOnly”, all numbers should be spelled out.
+				    <br/>“digitsOnly”, no numbers should be spelled out
 
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Zero Format
-				</td>
-        <td>
-					String (optional)
-				</td>
-        <td>
-					(default “صفر”). The word used to express a value of 0. Either “صفر”, “اي”, or another
-					 word or phrase of your choice, e.g. “لايوجد”.
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Modifiers
-				</td>
-        <td>
-					List of Strings (Optional)
-				</td>
-        <td>
-					A list of adjectives that can be used to describe the noun given in the noun parameter.
-					 The full agreement between adjectives and the noun will be used, unless, the noun
-					 available in the database and has the value “un-human” and the value “DA” is given in
-					 the “agreement” parameter
-				</td>
-      </tr>
-			<tr>
-        <td>
-					Agreement
-				</td>
-        <td>
-					Boolean (optional)
-				</td>
-        <td>
-					(default “True”, meaning Full agreement). This value indicates how the adjective will
-					 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
-					  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
-						 the noun has the value “un-human” in the database.
-				</td>
-      </tr>
-    </tbody>
-  </table>
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Zero Format
+					</td>
+	        <td>
+						String (optional)
+					</td>
+	        <td>
+						(default “صفر”). The word used to express a value of 0. Either “صفر”, “اي”, or another
+						 word or phrase of your choice, e.g. “لايوجد”.
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Modifiers
+					</td>
+	        <td>
+						List of Strings (Optional)
+					</td>
+	        <td>
+						A list of adjectives that can be used to describe the noun given in the noun parameter.
+						 The full agreement between adjectives and the noun will be used, unless, the noun
+						 available in the database and has the value “un-human” and the value “DA” is given in
+						 the “agreement” parameter
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Agreement
+					</td>
+	        <td>
+						Boolean (optional)
+					</td>
+	        <td>
+						(default “True”, meaning Full agreement). This value indicates how the adjective will
+						 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
+						  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
+							 the noun has the value “un-human” in the database.
+					</td>
+	      </tr>
+	    </tbody>
+  	</table>
   </div>
   <div id="inflect_noun" class="tab-pane fade">
     <h3><a href="/inflect_noun" >
@@ -298,6 +301,7 @@
 						  the verb inflections
 					</td>
 				</tr>
+				<tr>
 	        <td>
 						Number
 					</td>
@@ -389,6 +393,7 @@
 							“agreement” parameter
 					</td>
 				</tr>
+				<tr>
 	        <td>
 						Number
 					</td>
@@ -396,7 +401,7 @@
 						Number or String (Optional)
 					</td>
 	        <td>(default “plural” )The grammatical number of the verb. Either singular, dual,
-						plural or a number (not: dual or number 2 can’t be used with the 1st person)
+						plural or a number
 					</td>
 				</tr>
 				<tr>
@@ -408,8 +413,7 @@
 				 </td>
 					<td>
 						(default “1” for male if the value not in the db). It accepts only two values “0” and
-						 “1” for female and male respectively. This value will be used in case of the adjective
-						  is not found in the database only.
+						 “1” for female and male respectively.
 					</td>
 				</tr>
 				<tr>
@@ -480,6 +484,7 @@
 						 plural or a number (not: dual or number 2 can’t be used with the 1st person, therefore, in this case the pronoun of the plural first person will be used)
 					</td>
 				</tr>
+				<tr>
 					<td>
 						Gender
 					</td>
@@ -546,6 +551,200 @@
 			</tbody>
 		</table>
   </div>
+	<div id="num_to_words" class="tab-pane fade">
+    <h3><a href="/num_to_words" >
+	    ar_numToWords
+	  </a></h3>
+    <p>
+		Change the numbers to their respective words in two types “Cardinal” and “Ordinal”.
+		For example: 12 => (اثنا عشر) twelve, if the “Cardinal” type is used.</p>
+		<table class="table table-hover">
+	    <thead>
+	      <tr>
+	        <th>Parameter </th>
+	        <th>Type</th>
+	        <th>Description</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>Number</td>
+	        <td>Number
+					(Mandatory)
+					</td>
+	        <td>The number to be spelled out.
+					 </td>
+	      </tr>
+	      <tr>
+	        <td>Case </td>
+	        <td>String (optional)</td>
+	        <td>
+						Default value (nominative). This parameter accepts only these three values “nominative”,
+						“accusative” or “genitive”. It represent the case that the number should be inflected base on it
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Gender
+					</td>
+	        <td>
+						Number (optional)
+					</td>
+	        <td>
+						(default “1” for male). It accepts only two values “0” and “1” for female and male
+						respectively.
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Type
+					</td>
+	        <td>
+						String (optional)
+					</td>
+	        <td>
+						Default (cardinal), it can takes only two values: “cardinal”   or “ordinal”
+					</td>
+	      </tr>
+
+				<tr>
+	        <td>
+						Number Format
+					</td>
+	        <td>
+						Number or String (optional)
+					</td>
+	        <td>
+						(default “wordsOnly”). If count is less than or equal to this value it will be spelled out;
+						otherwise it will be formatted as digits. For example, if you enter the integer 5, then numbers up
+						 to and including 5 will be words, and numbers greater than 5 will be digits.
+					  <br/>“wordsOnly”, all numbers should be spelled out.
+				    <br/>“digitsOnly”, no numbers should be spelled out
+
+					</td>
+	      </tr>
+				<tr>
+	        <td>
+						Zero Format
+					</td>
+	        <td>
+						String (optional)
+					</td>
+	        <td>
+						(default “صفر”). The word used to express a value of 0. Either “صفر”, “اي”, or another
+						 word or phrase of your choice, e.g. “لايوجد”.
+					</td>
+	      </tr>
+
+	    </tbody>
+  	</table>
+  </div>
+	<div id="country_adjective" class="tab-pane fade">
+		<h3><a href="/country_adjective" >
+			Country Adjective
+		</a></h3>
+		<p>
+			Returns the corresponding adjective for a given country name. For example, applied to
+			(أنكلترا) “England” it produces (انكليزي)“English”, applied to (المانيا)“Germany” it produces (الماني)
+			“German”, and applied to "Belarus" (بيلاروسيا) or (روصيا البيضاء) it produces "Belarusian" (بيلاروسي).
+		</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Parameter </th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Country
+					</td>
+					<td>
+						Strings (Optional)
+					</td>
+					<td>
+						The input country name.
+						The input country will not be recognized as a country name unless it is in the database
+						of countries. If the input country is not recognized, this message "No result found" will be produced.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Number
+					</td>
+					<td>
+						Number or String (Optional)
+					</td>
+					<td>(default “plural” )The grammatical number of the verb. Either singular, dual,
+						plural or a number
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Gender
+					</td>
+					<td>
+					 Number (optional
+				 </td>
+					<td>
+						(default “1” for male if the value not in the db). It accepts only two values “0” and
+						 “1” for female and male respectively.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Case
+					</td>
+					<td>
+					 String (optional)
+				 </td>
+					<td>
+						Default value (nominative). This parameter accepts only these three values “nominative”,
+						 “accusative” or “genitive”. It represent the case of the adjective to be inflected base on it
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+	<div id="country_determiner" class="tab-pane fade">
+		<h3><a href="/country_determiner" >
+			Country Determiner
+		</a></h3>
+		<p>
+			Determines if a given country name should be preceded by the determiner "the" (ال) and returns the country 
+			name with or without the determiner as required.
+		</p>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Parameter </th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Country
+					</td>
+					<td>
+						Strings (Optional)
+					</td>
+					<td>
+						The input country name.
+						The input country will not be recognized as a country name unless it is in the database
+						of countries. If the input country is not recognized, this message "No result found" will be produced.
+					</td>
+				</tr>
+
+
+			</tbody>
+		</table>
+	</div>
+
 </div>
 
   </div>
