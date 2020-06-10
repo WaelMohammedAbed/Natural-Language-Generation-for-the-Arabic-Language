@@ -40,13 +40,12 @@ def is_arabic_word(word):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,plural=None,chosen_type="singular",modifiers=[],agreement=True):
     pluralByCase={'accusative': "plural_a", 'nominative': "plural_n", 'genitive':"plural_g"}
     dualByCase={'accusative': "dual_a", 'nominative': "dual_n", 'genitive':"dual_g"}
     singularByCase={'accusative': "singular_a", 'nominative': "singular_n", 'genitive':"singular_g"}
-    cur = mysql.cursor(buffered=True,dictionary=True)
+
     select_singular=("SELECT * FROM `nouns` WHERE "
                      +"`singular_a` = %(noun)s "
                      +"OR `singular_n` = %(noun)s "
@@ -60,8 +59,12 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
     data_singular = {
       'noun': noun,
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+    cur = mysql.cursor(buffered=True,dictionary=True)
     cur.execute(select_singular,data_singular)
     nounDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
     # get Gender value
 
     if(gender == None and nounDetails != None and nounDetails["gender"] != None): # if gender not given then take the noun gender from db if exist
@@ -193,10 +196,14 @@ def get_noun_modifiers(modifiers,
         data_adjective = {
             'adjective': adjective,
         }
+        mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+
         cur = mysql.cursor(buffered=True,dictionary=True)
 
         cur.execute(select_adjective,data_adjective)
         adjectiveDetails = cur.fetchone()
+        cur.close()
+        mysql.close()
         # deflected agreement condition
         if not is_human and not agreement and number_form== 'plural':
             #condition is true then take the feminine singular form
@@ -237,9 +244,13 @@ def get_numeral(count,case,gender):
       'noun_case': case,
       'gender': gender,
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+
     cur = mysql.cursor(buffered=True)
     cur.execute(select_numeral,data_numeral)
     numeralDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
     return numeralDetails[0]
 
 
@@ -251,7 +262,7 @@ def simplex_singular_numeral(count, noun, case="nominative", gender = None, dual
 
     chosenNoun,gender=get_noun_dual_plural_gender(noun,case,gender,dual,plural,chosen_type,modifiers,agreement)
     numeral=get_numeral(count,case,gender)
-    numeralNumber=2
+    numeralNumber="2"
 
     if(noun in numeral_names):
         numeral=""
@@ -259,7 +270,7 @@ def simplex_singular_numeral(count, noun, case="nominative", gender = None, dual
     if(count ==1 and ((isinstance(number_format, int) and count <= number_format) or number_format=="wordsOnly")):    #
         return chosenNoun,numeral,1 # noun, numeral, numeral_index
     elif(count ==1 and ((isinstance(number_format, int) and count > number_format) or number_format=="digitsOnly")):    #
-        return chosenNoun+"1",1 # noun, numeral, numeral_index
+        return chosenNoun,"1",1 # noun, numeral, numeral_index
     elif(count ==2 and ((isinstance(number_format, int) and count <= number_format) or number_format=="wordsOnly")):    #
         return chosenNoun,numeral,1 # noun, numeral, numeral_index
     elif(count ==2 and ((isinstance(number_format, int) and count > number_format) or number_format=="digitsOnly")):    #
@@ -514,7 +525,7 @@ def countable(count, noun, case="nominative", gender = None, dual = None, plural
     except :
         count=str(count)
     if(count is None or len(str(count).strip())==0):
-        count="singular"
+        return { 'error':True,'message':'Count is Mandatory'}
     else:
         if isinstance(count,str) and (count in ["singular","dual","plural"]):
             count=str(count).strip().lower()

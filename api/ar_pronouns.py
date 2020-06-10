@@ -29,13 +29,12 @@ def remove_diacritics(text):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 
 
 def get_choosen_pronoun(gender,number,person,pronoun_type):
 
-    cur = mysql.cursor(buffered=True,dictionary=True)
+
     select_pronoun=("SELECT `pronoun` FROM `personal_pronouns` WHERE "
                     +" `gender`= %(gender)s "
                     +"AND `number`= %(number)s "
@@ -47,8 +46,12 @@ def get_choosen_pronoun(gender,number,person,pronoun_type):
       'person': person,
       'type': pronoun_type
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+    cur = mysql.cursor(buffered=True,dictionary=True)
     cur.execute(select_pronoun,data_pronoun)
     resultDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
 
 
 

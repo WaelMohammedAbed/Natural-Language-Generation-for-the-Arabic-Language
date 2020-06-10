@@ -29,13 +29,12 @@ def remove_diacritics(text):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 
 
 def get_choosen_verb_inflection(word,choosen_verb_inflection):
 
-    cur = mysql.cursor(buffered=True,dictionary=True)
+
     select_singular=("SELECT `"+choosen_verb_inflection+"` FROM `verbs_inflections` WHERE "
                      +" `verb_root` = %(value)s "
                     +" OR `form_number` = %(value)s "
@@ -177,8 +176,12 @@ def get_choosen_verb_inflection(word,choosen_verb_inflection):
     data_singular = {
       'value': word,
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+    cur = mysql.cursor(buffered=True,dictionary=True)
     cur.execute(select_singular,data_singular)
     resultDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
     if resultDetails != None and resultDetails[choosen_verb_inflection] != None:
         return resultDetails[choosen_verb_inflection]
     else:

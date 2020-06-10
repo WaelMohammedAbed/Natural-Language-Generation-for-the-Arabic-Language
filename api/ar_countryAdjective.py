@@ -41,7 +41,6 @@ def is_arabic_word(word):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 
 
@@ -80,10 +79,14 @@ def get_country_adjective(country,
     data_country = {
         'country': country,
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+
     cur = mysql.cursor(buffered=True,dictionary=True)
 
     cur.execute(select_country,data_country)
     countryDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
 
     country_adjective=""
     #check if the value in the database

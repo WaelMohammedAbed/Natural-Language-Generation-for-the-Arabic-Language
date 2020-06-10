@@ -13,6 +13,28 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var example_values=[
+				["","","","","","",""],
+				["2","هدف","","","",""],
+				["3","هدف","","","",""],
+				["dual","سيارة","","","",""],
+				["plural","سيارة","","","",""],
+				["3","موكيت","","","",""],
+				["3","موكيت","f","","",""],
+				["plural","بحر","","","",""],
+				["plural","بحر","","","","بحور"],
+				["-3","رجل","","","",""],
+			]
+				$( "#examples" ).change(function() {
+
+					example_id=$( this ).val()
+					$("input[name=\"number\"]").val(example_values[example_id][0])
+					$("input[name=\"word\"]").val(example_values[example_id][1])
+					$("select[name=\"gender\"]").val(example_values[example_id][2])
+					$("select[name=\"case\"]").val(example_values[example_id][3])
+					$("input[name=\"dual\"]").val(example_values[example_id][4])
+					$("input[name=\"plural\"]").val(example_values[example_id][5])
+	      });
 
 			  $("#post_form").submit(function(e){
 				e.preventDefault();
@@ -46,7 +68,8 @@
 	  <div class="col-lg-6 col-md-6 col-sm-6">
 	  <form id="post_form" method="POST" action="">
 		<div class="form-group">
-		  Word (search priority to  the noun in its singular nominative form) <input class="form-control" type="text" name="word" />
+		  Word (search priority to  the noun in its singular nominative form)
+			<input class="form-control" type="text" name="word" />
 
 		</div>
 		<div class="form-group">
@@ -93,6 +116,22 @@
 
 	  </div>
 	  <div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+				use one of the examples below to auto fill the fields then click get to see the results
+				<select class="form-control" id ="examples"  name="examples">
+					<option value="0"> Choose an example</option>
+					<option value="1"> ex 1: number=2, noun = هدف (goal) which is masculine noun with broken plural and default value for the rest</option>
+					<option value="2">ex 2: number=3, noun = هدف (goal) and default value for the rest </option>
+					<option value="3">ex 3: number=dual, noun = سيارة (car) which is feminine noun with sound plural and default value for the rest</option>
+					<option value="4">ex 4: number=plural, noun = سيارة (car) and default value for the rest</option>
+					<option value="5">ex 5: number=3, noun = موكيت (carpet) this word not in the db. and default value for the rest</option>
+					<option value="6">ex 6: same as ex 5 but with gender =f </option>
+					<option value="7">ex 7: number= plural, noun= بحر (sea) and default vaule for the rest</option>
+					<option value="8">ex 8: same as ex 7 but with plural = بحور </option>
+					<option value="9">ex 9: number= -3 and noun ="رجل" man</option>
+				</select>
+
+			</div>
 		The result
 		<div id="results" style ="direction: rtl;"></div>
 		</div>

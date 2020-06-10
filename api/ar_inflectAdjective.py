@@ -41,7 +41,6 @@ def is_arabic_word(word):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 
 
@@ -118,10 +117,14 @@ def get_noun_modifiers(modifiers,
         data_adjective = {
             'adjective': adjective,
         }
+        mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+
         cur = mysql.cursor(buffered=True,dictionary=True)
 
         cur.execute(select_adjective,data_adjective)
         adjectiveDetails = cur.fetchone()
+        cur.close()
+        mysql.close()
         # deflected agreement condition
         if not is_human and not agreement and number_form== 'plural':
             #condition is true then take the feminine singular form

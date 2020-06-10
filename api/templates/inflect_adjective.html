@@ -13,6 +13,24 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var example_values=[
+				["","","","","",""],
+				["1","طويل","f","","",""],
+				["2","قصير","m","","",""],
+				["3","ذكي","f","accusative","",""],
+				["plural","ذكي","m","genitive","0","DA"],
+				["3","خائف","f","accusative","1",""]
+			]
+				$( "#examples" ).change(function() {
+
+					example_id=$( this ).val()
+					$("input[name=\"number\"]").val(example_values[example_id][0])
+					$("input[name=\"modifiers\"]").val(example_values[example_id][1])
+					$("select[name=\"gender\"]").val(example_values[example_id][2])
+					$("select[name=\"case\"]").val(example_values[example_id][3])
+					$("select[name=\"is_human\"]").val(example_values[example_id][4])
+					$("select[name=\"agreement\"]").val(example_values[example_id][5])
+	      });
 
 			  $("#post_form").submit(function(e){
 				e.preventDefault();
@@ -100,6 +118,19 @@
 
 	  </div>
 	  <div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+				use one of the examples below to auto fill the fields then click get to see the results
+				<select class="form-control" id ="examples"  name="examples">
+					<option value="0"> Choose an example</option>
+					<option value="1"> ex 1: number=1, adj = طويل (tall),gender =f and  default value for the rest</option>
+					<option value="2">ex 2: number=2, adj = قصير (short), gender = m  and default value for the rest </option>
+					<option value="3">ex 3: number=3, adj = ذكي (clever), gender =f,case = accusative  and default value for the rest</option>
+					<option value="4">ex 4: number=plural, adj = ذكي (clever),gender=m, case = genitive and default value for the rest</option>
+					<option value="5">ex 5: number=3, noun = adj (red),gender=f case = accusative, is_human= Yes, Agreement=Deflected</option>
+
+				</select>
+
+			</div>
 		The result
 		<div id="results" style ="direction: rtl;"></div>
 		</div>

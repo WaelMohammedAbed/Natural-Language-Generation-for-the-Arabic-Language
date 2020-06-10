@@ -13,6 +13,19 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+			var example_values=[
+				[""],
+				["انكلترا"],
+				["بيلاروسيا"],
+				["روسيا البيضاء"],
+				["ألمانيا"],
+				[" المملكة العربية السعودية"]
+			]
+				$( "#examples" ).change(function() {
+
+					example_id=$( this ).val()
+					$("input[name=\"country\"]").val(example_values[example_id][0])
+	      });
 
 			  $("#post_form").submit(function(e){
 				e.preventDefault();
@@ -84,6 +97,19 @@
 
 	  </div>
 	  <div class="col-lg-6 col-md-6 col-sm-6">
+			<div class="form-group">
+				use one of the examples below to auto fill the fields then click get to see the results
+				<select class="form-control" id ="examples"  name="examples">
+					<option value="0"> Choose an example</option>
+					<option value="1"> ex 1: انكلترا - England</option>
+					<option value="2">ex 2: بيلاروسيا - Belarus </option>
+					<option value="3">ex 3: وسيا البيضاء - Belarus</option>
+					<option value="4">ex 4: المانيا - Germany </option>
+					<option value="5">ex 5: المملكة العربية السعودية - the Kingdom of Saudi Arabia</option>
+
+				</select>
+
+			</div>
 		The result
 		<div id="results" style ="direction: rtl;"></div>
 		</div>

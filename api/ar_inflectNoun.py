@@ -39,13 +39,12 @@ def is_arabic_word(word):
 # Configure db
 db = yaml.safe_load(open('db.yaml'))
 
-mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
 
 def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,plural=None,chosen_type="singular"):
     pluralByCase={'accusative': "plural_a", 'nominative': "plural_n", 'genitive':"plural_g"}
     dualByCase={'accusative': "dual_a", 'nominative': "dual_n", 'genitive':"dual_g"}
     singularByCase={'accusative': "singular_a", 'nominative': "singular_n", 'genitive':"singular_g"}
-    cur = mysql.cursor(buffered=True,dictionary=True)
+
     select_singular=("SELECT * FROM `nouns` WHERE "
                      +"`singular_a` = %(noun)s "
                      +"OR `singular_n` = %(noun)s "
@@ -59,8 +58,12 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
     data_singular = {
       'noun': noun,
     }
+    mysql = MySQL.connect(host=db['mysql_host'],database=db['mysql_db'],user=db['mysql_user'],password=db['mysql_password'])
+    cur = mysql.cursor(buffered=True,dictionary=True)
     cur.execute(select_singular,data_singular)
     nounDetails = cur.fetchone()
+    cur.close()
+    mysql.close()
     # get Gender value
     if(gender == None and nounDetails != None and nounDetails["gender"] != None): # if gender not given then take the noun gender from db if exist
         gender=nounDetails["gender"]
