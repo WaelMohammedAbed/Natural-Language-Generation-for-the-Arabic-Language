@@ -73,6 +73,7 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
         gender=1
 
     chosenNoun=noun
+    print(chosen_type)
     if (chosen_type=="singular"):
         # get singular Value
         chosenNoun=noun
@@ -99,12 +100,14 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
             chosenNoun=dual
     elif(chosen_type == "plural"):
         #get Plural value
+        print("in plural")
         if (nounDetails == None or (nounDetails != None and nounDetails[pluralByCase[case]] == None)):
             chosenNoun=getManualNounPlural(noun,case,gender)
         else:
             chosenNoun=nounDetails[pluralByCase[case]]
         if(plural != None):
             chosenNoun=plural
+        print("chosenNoun",chosenNoun)
 
     # check if noun is for human or not
     is_human=None
@@ -142,6 +145,8 @@ def getManualAdjectiveForm(adjective,case,gender,number_form):
         if adjective.endswith('ة'):
             adjective=adjective[:-1]
         if( number_form == "singular"):
+            if (case == "accusative"):
+                adjective+="ا"
             return adjective
         elif (number_form =="dual"):
             if (case == "nominative"): # if masculine and nominative add suffix "ان"
@@ -588,7 +593,7 @@ def countable(count, noun, case="nominative", gender = None, dual = None, plural
     # end check params ----------------------------------------------------------------------------
 
     if isinstance(count,str) and (count in ["singular","dual","plural"]):
-        countable_noun_printable = get_noun_dual_plural_gender(noun,case,gender,dual,plural,count,modifier_list,agreement)
+        countable_noun_printable,_ = get_noun_dual_plural_gender(noun,case,gender,dual,plural,count,modifier_list,agreement)
     elif isinstance(count,int):
         countable_noun=countable2(count,noun,case,gender,dual,plural,number_format,zero_format,modifier_list,agreement)
 

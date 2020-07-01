@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  2 22:47:34 2019
-
-@author: Roaa
-"""
-
 # Import libraries
 import requests
 from bs4 import BeautifulSoup
@@ -32,16 +25,16 @@ def insertNounRoot(noun):
 first_noun="آتشيوت"
 for i in range(44):#range(44):
     url='https://en.wiktionary.org/w/index.php?title=Category:Arabic_nouns&pagefrom='+first_noun
-    
+
     # Connect to the URL
     response = requests.get(url)
     response.encoding = "utf-8"
     nouns=[]
-    
+
      # Parse HTML and save to BeautifulSoup object¶
     soup = BeautifulSoup(response.text, "html.parser")
     div= soup.find('div', attrs={'id':'mw-pages'})
-    
+
 
     try:
         for ul in div.findAll('ul'):
@@ -56,5 +49,3 @@ for i in range(44):#range(44):
         #print('Failed to scrap wiki: '+ str(e))
 
     print(first_noun)
-    
-    

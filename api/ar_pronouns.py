@@ -98,6 +98,10 @@ def get_ar_pronoun(number, gender, person, pronoun_type, word,is_person):
         # when adding the suffixes pronouns
         elif word in ["على","الى","إلى"]:
             word= word[:-1]+"ي"
+        # If the noun ends with the letter “ة” (taa’ marbuuta). When the suffix pronoun
+        # added, this character must be changed to “ت” (taa’ tawila) then add the suffix
+        if word.endswith('ة'):
+            word=word[:-1]+"ت"
         # it is not allowed in Arabic to use a two consecutive same vowel and they should
         # merge in one and with prepositions pronoun ي is used instead of ني
         if pronoun == "ي" and word.endswith("ي"):
