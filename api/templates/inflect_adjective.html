@@ -18,8 +18,8 @@
 				["1","طويل","f","","",""],
 				["2","قصير","m","","",""],
 				["3","ذكي","f","accusative","",""],
-				["plural","ذكي","m","genitive","0","DA"],
-				["3","خائف","f","accusative","1",""]
+				["plural","ذكي","m","genitive","",""],
+				["3","خائف","f","accusative","0","DA"]
 			]
 				$( "#examples" ).change(function() {
 
@@ -76,9 +76,13 @@
 			<div class="form-group">
 			 	Gender
 			 	<select class="form-control"  name="gender">
-					<option value="">select Value</option>
-			 		<option value="m"> Male</option>
-			 		<option value="f"> Female</option>
+				<option value=""> Select Value</option>
+				<option value="1"> 1-Male</option>
+				<option value="0"> 0-Female</option>
+				<option value="m"> m-Male</option>
+				<option value="f"> f-Female</option>
+				<option value="Male"> Male</option>
+				<option value="female"> Female</option>
 			 	</select>
 
 			</div>
@@ -105,8 +109,14 @@
 				 Agreement (To set the relation between the noun and its modifiers. either Deflected agreement or full agreement).
 				 <select class="form-control"  name="agreement">
 					 <option value="">select Value</option>
-					 <option value="FA"> Full Agreement</option>
-					 <option value="DA"> Deflected Agreement</option>
+					 <option value="1"> (1)Full Agreement</option>
+					 <option value="0"> (0)Deflected Agreement</option>
+					 <option value="FA"> (FA)Full Agreement</option>
+					 <option value="DA"> (DA)Deflected Agreement</option>
+					 <option value="full"> (full) Full Agreement</option>
+					 <option value="deflected"> (deflected) Deflected Agreement</option>
+					 <option value="full Agreement"> Full Agreement</option>
+					 <option value="deflected Agreement"> Deflected Agreement</option>
 				 </select>
 			</div>
 
@@ -126,7 +136,7 @@
 					<option value="2">ex 2: number=2, adj = قصير (short), gender = m  and default value for the rest </option>
 					<option value="3">ex 3: number=3, adj = ذكي (clever), gender =f,case = accusative  and default value for the rest</option>
 					<option value="4">ex 4: number=plural, adj = ذكي (clever),gender=m, case = genitive and default value for the rest</option>
-					<option value="5">ex 5: number=3, noun = adj (red),gender=f case = accusative, is_human= Yes, Agreement=Deflected</option>
+					<option value="5">ex 5: number=3, adj = خائف (afraid),gender=f case = accusative, is_human= false, Agreement=Deflected</option>
 
 				</select>
 

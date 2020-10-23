@@ -67,7 +67,7 @@
 
 <div class="container-fluid">
 <div class="page-header">
-    <h1>Countable Function</h1>
+    <h1>BuildNP (build noun phrase) Function</h1>
   </div>
   <div class="row">
 	  <div class="col-lg-6 col-md-6 col-sm-6">
@@ -86,8 +86,12 @@
 				 			Gender
 				 			<select class="form-control"  name="gender">
 				 				<option value=""> Select Value</option>
-				 				<option value="m"> Male</option>
-				 				<option value="f"> Female</option>
+				 				<option value="1"> 1-Male</option>
+				 				<option value="0"> 0-Female</option>
+								<option value="m"> m-Male</option>
+				 				<option value="f"> f-Female</option>
+								<option value="Male"> Male</option>
+				 				<option value="female"> Female</option>
 				 			</select>
 
 				 		</div>
@@ -133,16 +137,22 @@
 						<div class="form-group">
 							Agreement (To set the relation between the noun and its modifiers. either Deflected agreement or full agreement).
 							<select class="form-control"  name="agreement">
-								<option value=""> Select Value</option>
-								<option value="FA"> Full Agreement</option>
-								<option value="DA"> Deflected Agreement</option>
+								 <option value="">select Value</option>
+								 <option value="1"> (1)Full Agreement</option>
+								 <option value="0"> (0)Deflected Agreement</option>
+								 <option value="FA"> (FA)Full Agreement</option>
+								 <option value="DA"> (DA)Deflected Agreement</option>
+								 <option value="full"> (full) Full Agreement</option>
+								 <option value="deflected"> (deflected) Deflected Agreement</option>
+								 <option value="full Agreement"> Full Agreement</option>
+								 <option value="deflected Agreement"> Deflected Agreement</option>
 							</select>
 
 						 </div>
 
 			  </div>
 				<div class="form-group">
-				  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get Countable">
+				  <input type="submit" class="btn btn-primary btn-block submit" id="submit_general"  value="Get a Noun phrase">
 				  </div>
 				</form>
 
@@ -159,10 +169,10 @@
 		 				<option value="4">ex 4: count=2, noun = رجال (men), case = accusative and default value for the rest</option>
 						<option value="5">ex 5: same as ex 1 but with modifier "طويل , وسيم" ( tall and handsome)</option>
 						<option value="6">ex 6: same as ex 2 but with case = "accusative" and modifier "طويل , وسيم" ( tall and handsome)</option>
-						<option value="7">ex 7: same as ex 5 but with dual = "شابين" (two young men) and number_format ="digitsOnly"</option>
+						<option value="7">ex 7: same as ex 5 but with dual = "شابين" (two young men) and number_format ="digitsOnly", case =accusative</option>
 						<option value="8">ex 8: same as ex 2 but with plural = "شباب" (young men) and number_format=2</option>
 						<option value="9">ex 9: count=0 and noun ="رجل" man</option>
-						<option value="10">ex 10: same as ex 9 but with noun ="رجل" men and zero_format="ولا" (None)</option>
+						<option value="10">ex 10: same as ex 9 but with noun ="رجال" men and zero_format="ولا" (None)</option>
 						<option value="11">ex 11: count= -3 and noun ="رجل" man</option>
 		 			</select>
 

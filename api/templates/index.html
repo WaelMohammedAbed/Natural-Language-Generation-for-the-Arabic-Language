@@ -29,7 +29,7 @@
 
 
 	<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#countable_nouns">Countable Nouns</a></li>
+  <li class="active"><a data-toggle="tab" href="#countable_nouns">BuildNP Nouns</a></li>
   <li><a data-toggle="tab" href="#inflect_noun">Inflect Noun</a></li>
   <li><a data-toggle="tab" href="#inflect_verbs">Inflect Verb</a></li>
 	<li><a data-toggle="tab" href="#inflect_adjective">Inflect adjective</a></li>
@@ -42,7 +42,7 @@
 <div class="tab-content">
   <div id="countable_nouns" class="tab-pane fade in active">
     <h3><a href="/countable_nouns" >
-	    Countable Nouns
+	    BuildNP Nouns
 	  </a></h3>
     <p>Generates a noun sentence with numerals in the right grammatically form, e.g. “مثتان و واحد و عشرون هدف”
 			 (Two hundred and twenty one goals).</p>
@@ -89,8 +89,7 @@
 						Number (optional)
 					</td>
 	        <td>
-						(default “1” for male). It accepts only two values “0” and “1” for female and male
-						respectively. If this value provided, then it overrides the existing gender of the noun
+						(default “1” for male). It accepts these values for male (1,m,male) and (0,f,female) for female. If this value provided, then it overrides the existing gender of the noun
 						 saved in the database. If not and there is no value in the database for the given noun
 						  then it will be treated as “male” noun.
 					</td>
@@ -172,8 +171,8 @@
 					</td>
 	        <td>
 						(default “True”, meaning Full agreement). This value indicates how the adjective will
-						 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
-						  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
+						 agree with the noun it modifies. If the value is one of these (1,"fa","full","full agreement") then it (they) will full agree with
+						  the noun. Else if the value in (0,"da","deflected","deflected agreement") then it will use the Deflected agreement in case if
 							 the noun has the value “un-human” in the database.
 					</td>
 	      </tr>
@@ -224,8 +223,7 @@
  					Number (optional
  				</td>
          <td>
-					 (default “1” for male if the value not in the db). It accepts only two values “0” and
-					  “1” for female and male respectively.
+					 (default “1” for male if the value not in the db). It accepts these values for male (1,m,male) and (0,f,female) for female.
 				 </td>
  			 </tr>
 			 <tr>
@@ -320,8 +318,7 @@
 					 Number (optional
 				 </td>
 					<td>
-						(default “1” for male if the value not in the db). It accepts only two values “0” and
-						 “1” for female and male respectively.
+						(default “1” for male if the value not in the db). It accepts these values for male (1,m,male) and (0,f,female) for female.
 					</td>
 				</tr>
 				<tr>
@@ -412,8 +409,7 @@
 					 Number (optional
 				 </td>
 					<td>
-						(default “1” for male if the value not in the db). It accepts only two values “0” and
-						 “1” for female and male respectively.
+						(default “1” for male if the value not in the db). It accepts these values for male (1,m,male) and (0,f,female) for female.
 					</td>
 				</tr>
 				<tr>
@@ -449,8 +445,8 @@
 				 </td>
 					<td>
 						(default “True”, meaning Full agreement). This value indicates how the adjective will
-						 agree with the noun it modifies. If “True” or “FA” then it (they) will full agree with
-						  the noun. Else if “False” or “DA” then it will use the Deflected agreement in case if
+						 agree with the noun it modifies. If the value is one of these (1,"fa","full","full agreement") then it (they) will full agree with
+						  the noun. Else if the value in (0,"da","deflected","deflected agreement") then it will use the Deflected agreement in case if
 							 the noun has the value “un-human” in the database.
 					</td>
 				</tr>
@@ -492,8 +488,7 @@
 						Number (optional)
 					</td>
 					<td>
-						(default “1” for male). It accepts only two values “0” and “1” for female and male
-						 respectively.
+						(default “1” for male). It accepts these values for male (1,m,male) and (0,f,female) for female.
 					</td>
 				</tr>
 				<tr>
@@ -591,8 +586,7 @@
 						Number (optional)
 					</td>
 	        <td>
-						(default “1” for male). It accepts only two values “0” and “1” for female and male
-						respectively.
+						(default “1” for male). It accepts these values for male (1,m,male) and (0,f,female) for female.
 					</td>
 	      </tr>
 				<tr>
@@ -677,7 +671,7 @@
 					<td>
 						Number or String (Optional)
 					</td>
-					<td>(default “plural” )The grammatical number of the verb. Either singular, dual,
+					<td>(default “plural” )The grammatical number of the adjective. Either singular, dual,
 						plural or a number
 					</td>
 				</tr>
@@ -689,8 +683,7 @@
 					 Number (optional
 				 </td>
 					<td>
-						(default “1” for male if the value not in the db). It accepts only two values “0” and
-						 “1” for female and male respectively.
+						(default “1” for male if the value not in the db). It accepts these values for male (1,m,male) and (0,f,female) for female.
 					</td>
 				</tr>
 				<tr>

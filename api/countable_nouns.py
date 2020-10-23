@@ -73,7 +73,6 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
         gender=1
 
     chosenNoun=noun
-    print(chosen_type)
     if (chosen_type=="singular"):
         # get singular Value
         chosenNoun=noun
@@ -100,14 +99,12 @@ def get_noun_dual_plural_gender(noun,case="nominative",gender = None,dual=None,p
             chosenNoun=dual
     elif(chosen_type == "plural"):
         #get Plural value
-        print("in plural")
         if (nounDetails == None or (nounDetails != None and nounDetails[pluralByCase[case]] == None)):
             chosenNoun=getManualNounPlural(noun,case,gender)
         else:
             chosenNoun=nounDetails[pluralByCase[case]]
         if(plural != None):
             chosenNoun=plural
-        print("chosenNoun",chosenNoun)
 
     # check if noun is for human or not
     is_human=None
