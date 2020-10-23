@@ -26,8 +26,7 @@ illustrates what values should each field take and how it works.
 To set up the API first you need to import the DB for the Arabic lexicon. To do this follow these
 steps:
 - Make sure that the Wamp server is installed and running.
-- Open the web browser then enter this URL (http://localhost/phpmyadmin/index.
-php). This will open the “PHPMyAdmin” page where you can connect to the MySQL DB
+- Open the web browser then enter this URL (http://localhost/phpmyadmin/index.php). This will open the “PHPMyAdmin” page where you can connect to the MySQL DB
 engine.
 - Enter username, password and choose MySQL as your DB server. These values should be
 set during the installation of the Wamp server, by default, the values are “root” for username
@@ -56,7 +55,7 @@ because of the windows restriction policies. To overcome this error run this com
 ExecutionPolicy Unrestricted -Force".
 - To install all the required libraries, run this command "pip install -r requirements.txt".
 - That is it. to run the API, run this command "python app.py".
-- By default, this will run a web host service with the API running on this URL "http://127.0.0.1:5000/".Open
+- By default, this will run a web host service with the API running on this URL "http://127.0.0.1:5000/". Open
 any web browser and insert this URL to see the API
 
 
