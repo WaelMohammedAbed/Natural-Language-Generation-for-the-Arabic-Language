@@ -49,10 +49,9 @@ during the installation phase. By default this file has these values(mysql_host:
 mysql_user: ’root’, mysql_password: ”, mysql_,db: ’ar_nlg’).
  - Inside the "api" folder open a command prompt window and run this command "virtualenv
 env" to create a virtual environment for this API.
- - Then, run this command "envScriptsactivate" to activate the virtual environment.
+ - Then, run this command "env/Scripts/activate" to activate the virtual environment.
 - if an error occurred during the activation of the virtual environment. then it is more likely
-because of the windows restriction policies. To overcome this error run this command "Set-
-ExecutionPolicy Unrestricted -Force".
+because of the windows restriction policies. To overcome this error open CMD as administrator then run this command "powershell Set-ExecutionPolicy Unrestricted -Force".
 - To install all the required libraries, run this command "pip install -r requirements.txt".
 - That is it. to run the API, run this command "python app.py".
 - By default, this will run a web host service with the API running on this URL "http://127.0.0.1:5000/". Open
