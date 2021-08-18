@@ -1,5 +1,5 @@
 # Natural Language Generation for the Arabic Language
-This repo is to provide the source code and the evaluation of the paper "Arabic NLG Language Functions" which was accepted to be published in "The 13th International Conference on Natural Language Generation (INLG 2020)". It is also part of my final project in order to get a degree in MSc of AI at the University of Aberdeen
+This repo is to provide the source code and the evaluation of the paper "Arabic NLG Language Functions" which was published in "The 13th International Conference on Natural Language Generation (INLG 2020)" (https://aclanthology.org/2020.inlg-1.2.pdf). It is also part of my final project in order to get a degree in MSc of AI at the University of Aberdeen
 
 ## The Arabic language functions API (introduction)
 This API consists of 8 Arabic language functions and provided with web UI with documentation
